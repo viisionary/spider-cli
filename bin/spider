@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+const { resolve } = require('path')
+const commander = require('commander');
+const { version, command } = require(resolve(__dirname, '../package.json'))
+const chalk = require('chalk');
+const { createApp } = require("../src/createApp");
+const program = new commander.Command(command)
+/**
+ * spider -v :显示版本号
+ */
+program.version(version).option('-v, --version', 'show spider cli version')
+
+let projectName;
+
+program.command('init')	.alias('i')
+	.description('Generate a new project')
+	.arguments('<project-directory>')
+	.usage(`${chalk.green('<project-directory>')} [options]`)
+	.action(name => {
+		projectName = name;
+		createApp(name)
+	})
+
+// 输入项目名称
+program.parse();
