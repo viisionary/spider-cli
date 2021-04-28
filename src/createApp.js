@@ -1,4 +1,4 @@
-const { green, blue } = require("chalk");
+const { green, blue, red } = require("chalk");
 const path = require('path');
 const fs = require('fs-extra');
 const fsO = require('fs');
@@ -77,7 +77,7 @@ function isSafeToCreateProjectIn(root, name) {
 	return true;
 }
 
-function createApp(name) {
+function createApp(name, isAnt) {
 	const root = path.resolve(name);
 	const appName = path.basename(root);
 	fs.ensureDirSync(name);
@@ -85,18 +85,20 @@ function createApp(name) {
 		process.exit(1);
 	}
 	console.log(`Creating a new React app in ${green(root)}.`);
-
-	const req = axios('https://api.github.com/repos/vislonery/spider/releases/latest').then(({ data }) => {
+	const project = isAnt ? 'antFrame' : 'spider'
+	const repo = `https://api.github.com/repos/vislonery/${project}/releases/latest`
+	const req = axios(repo).then(({ data }) => {
 		const { id, tarball_url, tag_name } = data
 		const codeFileName = `spider-${tag_name}`
 		const fileName = `spider-${tag_name.slice(1)}`
-		exec(`curl https://codeload.github.com/vislonery/spider/tar.gz/refs/tags/${tag_name} --output ${codeFileName}.tar.gz`)
+		exec(`curl https://codeload.github.com/vislonery/${project}/tar.gz/refs/tags/${tag_name} --output ${codeFileName}.tar.gz`)
 		exec(`tar -zxvf ./${codeFileName}.tar.gz`);
 		exec(`cp -a ./${fileName}/* ${root}`);
-		exec(`rm -rf ./${codeFileName}.tar.gz ./${fileName}`)
-		console.log(`\ncreated successfully, your app in ${root} \n`)
+		exec(`rm -rf ./${codeFileName}.tar.gz ./${fileName}`);
+
+		console.log(`\n created successfully, your app in ${root} \n`)
 		console.log(`run: cd ${blue(root)}`)
-		console.log('u need install package by yourself, and then u can start the app!😊')
+		console.log(`u need ${red('install')} package by yourself, and then u can start the app!😊`)
 	})
 
 }

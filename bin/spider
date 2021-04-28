@@ -11,15 +11,19 @@ const program = new commander.Command()
 program.version(version).option('-v, --version', 'show spider cli version')
 
 let projectName;
+let useAnt;
 
 program.command('init').alias('i')
 	.description('Generate a new project')
 	.arguments('<project-directory>')
 	.usage(`${chalk.green('<project-directory>')} [options]`)
-	.action(name => {
+	.option('-a, --ant', 'float argument')
+	.action((name,{ant}) => {
 		projectName = name;
-		createApp(name)
+		createApp(name,ant)
 	})
 
-// 输入项目名称
 program.parse();
+
+// 输入项目名称
+// program.parse();
