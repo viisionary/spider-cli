@@ -1,5 +1,5 @@
 {
-  "name": "spider-cli",
+  "name": "spider-cli-generater",
   "version": "1.0.0",
   "command": "create-spider-app",
   "author": {
