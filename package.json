@@ -1,6 +1,6 @@
 {
   "name": "spider-cli-generater",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "command": "create-spider-app",
   "author": {
     "email": "min_0610@icloud.com",
@@ -27,6 +27,5 @@
     "shelljs": "^0.8.4",
     "axios": "^0.21.1"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
