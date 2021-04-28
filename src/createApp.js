@@ -91,7 +91,7 @@ function createApp(name) {
 		const codeFileName = `spider-${tag_name}`
 		const fileName = `spider-${tag_name.slice(1)}`
 		exec(`curl https://codeload.github.com/vislonery/spider/tar.gz/refs/tags/${tag_name} --output ${codeFileName}.tar.gz`)
-		exec(`tar -zxvf ./${codeFileName}.tar.gz`,{shell: 'path/to/bash'});
+		exec(`tar -zxvf ./${codeFileName}.tar.gz`);
 		exec(`cp -a ./${fileName}/* ${root}`);
 		exec(`rm -rf ./${codeFileName}.tar.gz ./${fileName}`)
 		console.log(`\ncreated successfully, your app in ${root} \n`)
